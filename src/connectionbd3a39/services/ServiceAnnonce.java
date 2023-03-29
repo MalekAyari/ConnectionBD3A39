@@ -1,0 +1,120 @@
+package connectionbd3a39.services;
+
+import connectionbd3a39.entities.Annonce;
+import connectionbd3a39.tools.DataSource;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author GAMERS
+ */
+public class ServiceAnnonce implements IService<Annonce>{
+    
+    Connection cnx = DataSource.getInstance().getCnx();
+    
+    @Override
+    public void ajouter(Annonce a) throws SQLException{
+        String req = "INSERT INTO annonce (titre,description,date_creation, date_modification, img_url) VALUES (?,?,?,?,?)";
+        
+        PreparedStatement st = cnx.prepareStatement(req);
+        
+        st.setString(1, a.getTitre());
+        st.setString(2, a.getDescAnnonce());
+        st.setDate(3, a.getDateCreation());
+        st.setDate(4, a.getDateModification());
+        st.setString(5, a.getImg());
+
+        st.executeUpdate();
+    }
+
+    @Override
+    public void modifier(Annonce a, int id) throws SQLException{
+        
+        try {
+            String req = "UPDATE annonce SET titre=?, description=?, date_creation=? , date_modification=?, img_url=? WHERE id="+id;
+            
+            PreparedStatement st = cnx.prepareStatement(req);
+        
+            st.setString(1, a.getTitre());
+            st.setString(2, a.getDescAnnonce());
+            st.setDate(3, a.getDateCreation());
+            st.setDate(4, a.getDateModification());
+            st.setString(5, a.getImg());
+            
+            st.executeUpdate();
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    @Override
+    public void supprimer(int id) throws SQLException{
+
+        try {
+            String req = "delete from annonce where Id=" + id;
+            PreparedStatement st = cnx.prepareStatement(req);
+            st.executeUpdate();
+            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    @Override
+    public List<Annonce> getAll() throws SQLException{
+        List<Annonce> list = new ArrayList<>();
+        
+        String req = "select * from annonce";
+        
+        Statement st = cnx.createStatement();
+        
+        ResultSet set = st.executeQuery(req);
+        while(set.next()){
+            int id = set.getInt("id");
+            String titre = set.getString(2);
+            String description = set.getString(3);
+            Date dateCreation = set.getDate(4);
+            Date dateModification = set.getDate(5);
+            String img = set.getString(6);
+            
+            Annonce annonce = new Annonce(id, titre, description, dateCreation, dateModification, img);
+            list.add(annonce);
+        }
+        
+        return list;
+    }
+
+    @Override
+    public Annonce getOneById(int id) throws SQLException{
+        String req = "SELECT * FROM annonce WHERE `Id`="+ id;
+        Statement st = cnx.createStatement();
+
+        ResultSet rs = st.executeQuery(req);
+
+        while (rs.next()) {
+            Annonce a = new Annonce();
+            a.setId(rs.getInt(1));
+            a.setTitre(rs.getString("titre"));
+            a.setDescAnnonce(rs.getString("description"));
+            a.setDateCreation(rs.getDate("date_creation"));
+            a.setDateModification(rs.getDate("date_modification"));
+            a.setImg(rs.getString("img_url"));
+            return a;
+        }
+        return null;    
+    }
+}
