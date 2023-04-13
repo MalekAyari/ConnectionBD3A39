@@ -23,6 +23,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -49,7 +50,13 @@ public class ModificationController implements Initializable {
     public TextArea oldDesc;
     @FXML
     private Button btnSave;
-    
+
+    private Annonce annonce;
+
+    private Date dateCreation;
+
+    private ServiceAnnonce sa = new ServiceAnnonce();
+
     private int Id;
 
     public int getId() {
@@ -59,8 +66,6 @@ public class ModificationController implements Initializable {
     public void setId(int Id) {
         this.Id = Id;
     }
-    
-    private Date dateCreation;
 
     public Date getDateCreation() {
         return dateCreation;
@@ -70,8 +75,6 @@ public class ModificationController implements Initializable {
         this.dateCreation = dateCreation;
     }
 
-    private ServiceAnnonce sa = new ServiceAnnonce();
-
     public Annonce getAnnonce() {
         return annonce;
     }
@@ -80,14 +83,12 @@ public class ModificationController implements Initializable {
         this.annonce = annonce;
     }
 
-    private Annonce annonce;
-
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
     }
 
     @FXML
@@ -96,25 +97,79 @@ public class ModificationController implements Initializable {
         try {
             String titre = newTitre.getText();
             String descAnnonce = newDesc.getText();
-            Date dateModification = Date.valueOf(LocalDate.now());
             String img = newImg.getText();
 
-            Annonce a = new Annonce(titre, descAnnonce, dateCreation, dateModification, img);
+            Date dateModification = Date.valueOf(LocalDate.now());
 
-            sa.modifier(a, Id);
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("AnnonceFXML.fxml"));
-                Parent root = loader.load();
-                
-                Scene scene = new Scene(root);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                
-                stage.setScene(scene);
-                stage.show();   
-            } catch (IOException ex) {
-                Logger.getLogger(ModificationController.class.getName()).log(Level.SEVERE, null, ex);
+            Boolean titreEmpty = false;
+            Boolean imgEmpty = false;
+            Boolean descEmpty = false;
+
+            if (titre.trim().isEmpty()) {
+                newTitre.setStyle("-fx-border-color: red;");
+                titreEmpty = true;
+            }
+            if (descAnnonce.trim().isEmpty()) {
+                newDesc.setStyle("-fx-border-color: red;");
+                descEmpty = true;
+            }
+            if (img.trim().isEmpty()) {
+                newImg.setStyle("-fx-border-color: red;");
+                imgEmpty = true;
             }
 
+            if (imgEmpty && titreEmpty && descEmpty) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+
+                String str = "";
+                if (titreEmpty) {
+                    str += "Titre manquant!";
+                }
+                if (descEmpty) {
+                    if (!str.isEmpty()) {
+                        str += System.lineSeparator();
+                    }
+                    str += "Description manquante!";
+                }
+                if (imgEmpty) {
+                    if (!str.isEmpty()) {
+                        str += System.lineSeparator();
+                    }
+                    str += "Image manquante!";
+                }
+                str += System.lineSeparator() + System.lineSeparator() + "Veuillez introduire au moins une donnée!";
+
+                alert.setTitle("Information invalid");
+                alert.setHeaderText(str);
+                alert.showAndWait();
+            } else {
+
+                if (titre.isEmpty()) {
+                    titre = oldTitre.getText();
+                }
+                if (descAnnonce.isEmpty()) {
+                    descAnnonce = oldDesc.getText();
+                }
+                if (img.isEmpty()) {
+                    img = oldImg.getText();
+                }
+                Annonce a = new Annonce(titre, descAnnonce, dateCreation, dateModification, img);
+
+                sa.modifier(a, Id);
+
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("AnnonceFXML.fxml"));
+                    Parent root = loader.load();
+
+                    Scene scene = new Scene(root);
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException ex) {
+                    Logger.getLogger(ModificationController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ModificationController.class.getName()).log(Level.SEVERE, null, ex);
         }

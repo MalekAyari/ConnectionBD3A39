@@ -88,7 +88,7 @@ public class AnnonceFXMLController implements Initializable {
         //tvAction.setCellValueFactory(new PropertyValueFactory<Annonce,void>);
 
         try {
-            sa.getAll();
+            
             ObservableList<Annonce> list = FXCollections.observableArrayList(sa.getAll());
             tvAnnonce.setItems(list);
 
@@ -103,14 +103,60 @@ public class AnnonceFXMLController implements Initializable {
         try {
             String titre = tfTitre.getText();
             String descAnnonce = taDesc.getText();
-            Date dateCreation = Date.valueOf(LocalDate.now());
-            Date dateModification = Date.valueOf(LocalDate.now());
             String img = tfImg.getText();
 
-            Annonce a = new Annonce(titre, descAnnonce, dateCreation, dateModification, img);
+            Boolean titreEmpty = false;
+            Boolean imgEmpty = false;
+            Boolean descEmpty = false;
+            // Check if titre and img are empty
+            if (titre.trim().isEmpty()) {
+                tfTitre.setStyle("-fx-border-color: red;");
+                titreEmpty = true;
+            }
+            if (descAnnonce.trim().isEmpty()){
+                taDesc.setStyle("-fx-border-color: red;");
+                descEmpty = true;
+            }
+            if (img.trim().isEmpty()) {
+                tfImg.setStyle("-fx-border-color: red;");
+                imgEmpty = true;
+            }
 
-            sa.ajouter(a);
-            tvAnnonce.refresh();
+
+            if (imgEmpty || titreEmpty || descEmpty) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+
+                String str = "";
+                if (titreEmpty){
+                    str+= "Titre manquant!";
+                }
+                if (descEmpty) {
+                    if (!str.isEmpty()){
+                        str+=System.lineSeparator();
+                    }
+                    str+= "Description manquante!";
+                }
+                if (imgEmpty){
+                    if (!str.isEmpty()){
+                        str+=System.lineSeparator();
+                    }
+                    str+="Image manquante!";
+                }
+                str+=System.lineSeparator()+System.lineSeparator()+"Veuillez verifier vos données!" ;
+                
+                alert.setTitle("Information invalid");
+                alert.setHeaderText(str);
+                alert.showAndWait();
+            } else {
+                Date dateCreation = Date.valueOf(LocalDate.now());
+                Date dateModification = Date.valueOf(LocalDate.now());
+                Annonce a = new Annonce(titre, descAnnonce, dateCreation, dateModification, img);
+
+                sa.ajouter(a);
+                tvAnnonce.refresh();
+            }
+            
+            
         } catch (SQLException ex) {
             Logger.getLogger(AnnonceFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -138,6 +184,7 @@ public class AnnonceFXMLController implements Initializable {
 
     @FXML
     private void modifier(ActionEvent event) {
+        
         ObservableList<Annonce> rs = tvAnnonce.getSelectionModel().getSelectedItems();
 
         if (rs.isEmpty()) {
@@ -150,9 +197,9 @@ public class AnnonceFXMLController implements Initializable {
                 Annonce a = tvAnnonce.getSelectionModel().getSelectedItem();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("Modification.fxml"));
                 Parent root = loader.load();
-                
+
                 ModificationController modifController = loader.getController();
-                
+
                 modifController.setId(a.getId());
                 modifController.oldTitre.setText(a.getTitre());
                 modifController.oldDesc.setText(a.getDescAnnonce());
@@ -161,11 +208,10 @@ public class AnnonceFXMLController implements Initializable {
 
                 Scene scene = new Scene(root);
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                
+
                 stage.setScene(scene);
-                stage.show();   
-                
-                
+                stage.show();
+
                 System.out.println("redirected to modification");
             } catch (IOException ex) {
                 Logger.getLogger(AnnonceFXMLController.class.getName()).log(Level.SEVERE, null, ex);
