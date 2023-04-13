@@ -3,13 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/abdelazizmezri/NetBeansProjects/jdbc3A32/src/tn/edu/esprit/tests/MainClass.java</file>
-            <file>file:/Users/abdelazizmezri/NetBeansProjects/jdbc3A32/src/tn/edu/esprit/gui/AjouterPersonne.fxml</file>
-            <file>file:/Users/abdelazizmezri/NetBeansProjects/jdbc3A32/src/tn/edu/esprit/services/ServicePersonne.java</file>
-            <file>file:/Users/abdelazizmezri/NetBeansProjects/jdbc3A32/src/tn/edu/esprit/gui/AfficherPersonneController.java</file>
-            <file>file:/Users/abdelazizmezri/NetBeansProjects/jdbc3A32/src/tn/edu/esprit/gui/AjouterPersonneController.java</file>
-            <file>file:/Users/abdelazizmezri/NetBeansProjects/jdbc3A32/src/tn/edu/esprit/gui/AfficherPersonne.fxml</file>
-            <file>file:/Users/abdelazizmezri/NetBeansProjects/jdbc3A32/src/tn/edu/esprit/tests/FXMain.java</file>
+            <file>file:/C:/Users/GAMERS/Documents/NetBeansProjects/ConnectionBD3A39/src/connectionbd3a39/gui/AnnonceFXML.fxml</file>
+            <file>file:/C:/Users/GAMERS/Documents/NetBeansProjects/ConnectionBD3A39/src/connectionbd3a39/tests/TestAnnonce.java</file>
+            <file>file:/C:/Users/GAMERS/Documents/NetBeansProjects/ConnectionBD3A39/src/connectionbd3a39/gui/AnnonceFXMLController.java</file>
+            <file>file:/C:/Users/GAMERS/Documents/NetBeansProjects/ConnectionBD3A39/src/connectionbd3a39/gui/AnnonceGUI.java</file>
+            <file>file:/C:/Users/GAMERS/Documents/NetBeansProjects/ConnectionBD3A39/src/connectionbd3a39/services/ServiceAnnonce.java</file>
+            <file>file:/C:/Users/GAMERS/Documents/NetBeansProjects/ConnectionBD3A39/src/connectionbd3a39/gui/DetailsFXML.fxml</file>
+            <file>file:/C:/Users/GAMERS/Documents/NetBeansProjects/ConnectionBD3A39/src/connectionbd3a39/gui/PersonneGUI.java</file>
+            <file>file:/C:/Users/GAMERS/Documents/NetBeansProjects/ConnectionBD3A39/src/connectionbd3a39/entities/Commentaire.java</file>
+            <file>file:/C:/Users/GAMERS/Documents/NetBeansProjects/ConnectionBD3A39/src/connectionbd3a39/gui/DetailsFXMLController.java</file>
+            <file>file:/C:/Users/GAMERS/Documents/NetBeansProjects/ConnectionBD3A39/src/connectionbd3a39/entities/Annonce.java</file>
         </group>
     </open-files>
 </project-private>

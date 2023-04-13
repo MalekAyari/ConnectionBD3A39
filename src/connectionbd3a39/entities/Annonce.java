@@ -30,12 +30,6 @@ public class Annonce {
         this.img = img;
     }
 
-    public Annonce(String titre, String descAnnonce, String img) {
-        this.titre = titre;
-        this.descAnnonce = descAnnonce;
-        this.img = img;
-    }
-
     public Annonce(String titre, String descAnnonce, Date dateCreation, Date dateModification, String img) {
         this.titre = titre;
         this.descAnnonce = descAnnonce;

@@ -27,7 +27,6 @@ public class TestAnnonce extends ServiceAnnonce {
         try {
             serv.ajouter(a);
 
-            System.out.println("L'ajout fonctionne correctement!");
             System.out.println("-------------------------------");
             try {
                 List<Annonce> annonces = serv.getAll();
@@ -36,7 +35,6 @@ public class TestAnnonce extends ServiceAnnonce {
                 Annonce result2 = serv.getOneById(result1.getId());
                 
                 if (result1.equals(result2)) {
-                    System.out.println("Le retrait fonctionne correctement!");
                     System.out.println("-------------------------------");
                 }
                 try {
@@ -45,12 +43,10 @@ public class TestAnnonce extends ServiceAnnonce {
                     
                     serv.modifier(b, id);
                                         
-                    System.out.println("La modification fonctionne correctement!");
                     System.out.println("-------------------------------");
                     try {
                         serv.supprimer(id);
                         
-                        System.out.println("La suppression fonctionne correctement!");
                         System.out.println("-------------------------------");
 
                     } catch (SQLException e) {

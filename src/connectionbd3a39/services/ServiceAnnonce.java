@@ -38,6 +38,8 @@ public class ServiceAnnonce implements IService<Annonce>{
         st.setString(5, a.getImg());
 
         st.executeUpdate();
+        System.out.println("L'Ajout fonctionne correctement!");
+
     }
 
     @Override
@@ -55,7 +57,8 @@ public class ServiceAnnonce implements IService<Annonce>{
             st.setString(5, a.getImg());
             
             st.executeUpdate();
-            
+            System.out.println("La modification fonctionne correctement!");
+
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -68,7 +71,8 @@ public class ServiceAnnonce implements IService<Annonce>{
             String req = "delete from annonce where Id=" + id;
             PreparedStatement st = cnx.prepareStatement(req);
             st.executeUpdate();
-            
+            System.out.println("La suppression fonctionne correctement!");
+
         } catch (SQLException ex) {
             System.out.println(ex);
         }
@@ -95,6 +99,8 @@ public class ServiceAnnonce implements IService<Annonce>{
             list.add(annonce);
         }
         
+        System.out.println("Le retrait fonctionne correctement!");
+
         return list;
     }
 
@@ -115,6 +121,8 @@ public class ServiceAnnonce implements IService<Annonce>{
             a.setImg(rs.getString("img_url"));
             return a;
         }
+        
+        System.out.println("Le retrait fonctionne correctement!");
         return null;    
     }
 }
