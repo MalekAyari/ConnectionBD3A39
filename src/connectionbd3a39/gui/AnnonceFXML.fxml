@@ -27,10 +27,9 @@
         <columns>
           <TableColumn fx:id="tvId" editable="false" prefWidth="39.0" text="ID" />
           <TableColumn fx:id="tvTitre" editable="false" prefWidth="85.0" text="Titre" />
-            <TableColumn fx:id="tvDesc" editable="false" prefWidth="107.0" text="Description" />
-            <TableColumn fx:id="tvDC" editable="false" prefWidth="120.0" text="Date Création" />
-            <TableColumn fx:id="tvDM" editable="false" prefWidth="136.0" text="Date Modification" />
-            <TableColumn fx:id="tvAction" prefWidth="88.0" text="Action" />
+            <TableColumn fx:id="tvDesc" editable="false" prefWidth="179.0" text="Description" />
+            <TableColumn fx:id="tvDC" editable="false" prefWidth="122.0" text="Date Création" />
+            <TableColumn fx:id="tvDM" editable="false" prefWidth="147.0" text="Date Modification" />
         </columns>
       </TableView>
       <Button fx:id="btnSupp" layoutX="537.0" layoutY="561.0" mnemonicParsing="false" onAction="#supprimer" text="Supprimer" />

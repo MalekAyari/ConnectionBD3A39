@@ -20,6 +20,15 @@ public class Annonce {
     private Date dateCreation;
     private Date dateModification;
     private String img;
+    private Boolean selected;
+
+    public Boolean getSelected() {
+        return selected;
+    }
+
+    public void setSelected(Boolean selected) {
+        this.selected = selected;
+    }
 
     public Annonce(int id, String titre, String descAnnonce, Date dateCreation, Date dateModification, String img) {
         this.id = id;

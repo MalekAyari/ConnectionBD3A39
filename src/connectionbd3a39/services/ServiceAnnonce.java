@@ -57,7 +57,7 @@ public class ServiceAnnonce implements IService<Annonce>{
             st.setString(5, a.getImg());
             
             st.executeUpdate();
-            System.out.println("La modification fonctionne correctement!");
+            System.out.println("id:"+id+" a été modifié");
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -71,7 +71,7 @@ public class ServiceAnnonce implements IService<Annonce>{
             String req = "delete from annonce where Id=" + id;
             PreparedStatement st = cnx.prepareStatement(req);
             st.executeUpdate();
-            System.out.println("La suppression fonctionne correctement!");
+            System.out.println("id="+id+ " supprimée");
 
         } catch (SQLException ex) {
             System.out.println(ex);

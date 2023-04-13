@@ -18,19 +18,24 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -67,26 +72,19 @@ public class AnnonceFXMLController implements Initializable {
     private Button btnSupp;
     @FXML
     private Button btnModif;
-    
-    
-    
-    
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        btnModif.setDisable(true);
-        btnSupp.setDisable(true);
-        
+        tvAnnonce.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
         tvId.setCellValueFactory(new PropertyValueFactory<Annonce, Integer>("id"));
         tvTitre.setCellValueFactory(new PropertyValueFactory<Annonce, String>("titre"));
         tvDesc.setCellValueFactory(new PropertyValueFactory<Annonce, String>("descAnnonce"));
         tvDC.setCellValueFactory(new PropertyValueFactory<Annonce, Date>("dateCreation"));
         tvDM.setCellValueFactory(new PropertyValueFactory<Annonce, Date>("dateModification"));
-        tvAction.setCellValueFactory(new PropertyValueFactory<Annonce, Boolean>(""));
-        tvAction.setCellFactory(CheckBoxTableCell.forTableColumn(tvAction));
         //tvAction.setCellValueFactory(new PropertyValueFactory<Annonce,void>);
 
         try {
@@ -97,7 +95,7 @@ public class AnnonceFXMLController implements Initializable {
         } catch (SQLException e) {
             Logger.getLogger(AnnonceFXMLController.class.getName()).log(Level.SEVERE, null, e);
         }
-        
+
     }
 
     @FXML
@@ -112,8 +110,7 @@ public class AnnonceFXMLController implements Initializable {
             Annonce a = new Annonce(titre, descAnnonce, dateCreation, dateModification, img);
 
             sa.ajouter(a);
-            
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("DetailsFXML.fxml"));            
+            tvAnnonce.refresh();
         } catch (SQLException ex) {
             Logger.getLogger(AnnonceFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -121,10 +118,59 @@ public class AnnonceFXMLController implements Initializable {
 
     @FXML
     private void supprimer(ActionEvent event) {
+        ObservableList<Annonce> rs = tvAnnonce.getSelectionModel().getSelectedItems();
+
+        if (rs.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Information missing");
+            alert.setHeaderText("No annonce selected");
+            alert.showAndWait();
+        }
+        for (Annonce annonce : rs) {
+            try {
+                sa.supprimer(annonce.getId());
+            } catch (SQLException ex) {
+                Logger.getLogger(AnnonceFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        tvAnnonce.refresh();
     }
 
     @FXML
     private void modifier(ActionEvent event) {
+        ObservableList<Annonce> rs = tvAnnonce.getSelectionModel().getSelectedItems();
+
+        if (rs.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Information missing");
+            alert.setHeaderText("No annonce selected");
+            alert.showAndWait();
+        } else {
+            try {
+                Annonce a = tvAnnonce.getSelectionModel().getSelectedItem();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Modification.fxml"));
+                Parent root = loader.load();
+                
+                ModificationController modifController = loader.getController();
+                
+                modifController.setId(a.getId());
+                modifController.oldTitre.setText(a.getTitre());
+                modifController.oldDesc.setText(a.getDescAnnonce());
+                modifController.oldImg.setText(a.getImg());
+                modifController.setDateCreation(a.getDateCreation());
+
+                Scene scene = new Scene(root);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                
+                stage.setScene(scene);
+                stage.show();   
+                
+                
+                System.out.println("redirected to modification");
+            } catch (IOException ex) {
+                Logger.getLogger(AnnonceFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }
-    
 }
