@@ -58,6 +58,8 @@ public class ModificationController implements Initializable {
     private ServiceAnnonce sa = new ServiceAnnonce();
 
     private int Id;
+    @FXML
+    private Button btnSave1;
 
     public int getId() {
         return Id;
@@ -166,6 +168,8 @@ public class ModificationController implements Initializable {
 
                     stage.setScene(scene);
                     stage.show();
+                    System.out.println("Redirected to Annonces");
+
                 } catch (IOException ex) {
                     Logger.getLogger(ModificationController.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -173,6 +177,24 @@ public class ModificationController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(ModificationController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void annuler(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Annoncefxml.fxml"));
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            stage.setScene(scene);
+            stage.show();
+            System.out.println("Redirected to Annonces");
+        } catch (IOException ex) {
+            Logger.getLogger(ModificationController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
 }

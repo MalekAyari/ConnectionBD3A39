@@ -29,6 +29,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="btnSave" layoutX="342.0" layoutY="261.0" mnemonicParsing="false" onAction="#save" text="Sauvegarder" />
+      <Button fx:id="btnSave" layoutX="418.0" layoutY="261.0" mnemonicParsing="false" onAction="#save" text="Sauvegarder" />
+      <Button fx:id="btnSave1" layoutX="309.0" layoutY="261.0" mnemonicParsing="false" onAction="#annuler" text="Annuler" />
    </children>
 </AnchorPane>

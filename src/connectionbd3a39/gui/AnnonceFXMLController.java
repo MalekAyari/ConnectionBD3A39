@@ -153,10 +153,9 @@ public class AnnonceFXMLController implements Initializable {
                 Annonce a = new Annonce(titre, descAnnonce, dateCreation, dateModification, img);
 
                 sa.ajouter(a);
+                System.out.println("Annonce: "+ a.toString()+ " ajoutée");
                 tvAnnonce.refresh();
             }
-            
-            
         } catch (SQLException ex) {
             Logger.getLogger(AnnonceFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -212,7 +211,7 @@ public class AnnonceFXMLController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
 
-                System.out.println("redirected to modification");
+                System.out.println("Redirected to modification");
             } catch (IOException ex) {
                 Logger.getLogger(AnnonceFXMLController.class.getName()).log(Level.SEVERE, null, ex);
             }
