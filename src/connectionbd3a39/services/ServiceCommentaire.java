@@ -21,12 +21,11 @@ import java.util.List;
  *
  * @author GAMERS
  */
-public class ServiceCommentaire implements IService<Commentaire>{
+public class ServiceCommentaire {
     Connection cnx = DataSource.getInstance().getCnx();
     
-    @Override
-    public void ajouter(Commentaire a) throws SQLException{
-        String req = "INSERT INTO commentaire (titre,description,date_creation,date_modification,votes) VALUES (?,?,?,?,?)";
+    public void ajouter(Commentaire a, int id) throws SQLException{
+        String req = "INSERT INTO commentaire (titre,description,date_creation,date_modification,votes, annonce_id) VALUES (?,?,?,?,?,?)";
         
         PreparedStatement st = cnx.prepareStatement(req);
         
@@ -35,12 +34,11 @@ public class ServiceCommentaire implements IService<Commentaire>{
         st.setDate(3, a.getDateCreation());
         st.setDate(4, a.getDateModification());
         st.setInt(5, a.getVotes());
-
+        st.setInt(6, id);
         
         st.execute();
     }
-
-    @Override
+    
     public void modifier(Commentaire c, int id) throws SQLException {
         try {
             String req = "UPDATE commentaire SET titre=?, description=?, date_creation=? , date_modification=?, votes=? WHERE id="+id;
@@ -61,7 +59,6 @@ public class ServiceCommentaire implements IService<Commentaire>{
         }
     }
 
-    @Override
     public void supprimer(int id) throws SQLException {
 
         try {
@@ -76,7 +73,6 @@ public class ServiceCommentaire implements IService<Commentaire>{
         }
     }
 
-    @Override
     public List<Commentaire> getAll() throws SQLException{
         List<Commentaire> list = new ArrayList<>();
         
@@ -102,7 +98,6 @@ public class ServiceCommentaire implements IService<Commentaire>{
         return list;
     }
 
-    @Override
     public Commentaire getOneById(int id) throws SQLException{
         try {
 

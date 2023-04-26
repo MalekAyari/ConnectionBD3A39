@@ -79,7 +79,7 @@ public class Annonce {
     
     
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

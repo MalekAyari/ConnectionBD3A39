@@ -13,6 +13,15 @@ import java.sql.Date;
  */
 public class Commentaire {
 
+    public Commentaire(int id, String titre, String Contenu, Date dateCreation, Date dateModification, int votes, int annonceId) {
+        this.id = id;
+        this.titre = titre;
+        this.Contenu = Contenu;
+        this.dateCreation = dateCreation;
+        this.dateModification = dateModification;
+        this.votes = votes;
+    }
+
     public Commentaire(int id, String titre, String Contenu, Date dateCreation, Date dateModification, int votes) {
         this.id = id;
         this.titre = titre;
@@ -20,6 +29,14 @@ public class Commentaire {
         this.dateCreation = dateCreation;
         this.dateModification = dateModification;
         this.votes = votes;
+    }
+
+    public int getAnnonceId() {
+        return annonceId;
+    }
+
+    public void setAnnonceId(int annonceId) {
+        this.annonceId = annonceId;
     }
 
     public Commentaire() {
@@ -97,13 +114,13 @@ public class Commentaire {
     public void setVotes(int votes) {
         this.votes = votes;
     }
-    
+
     private int id;
     private String titre;
     private String Contenu;
     private Date dateCreation;
     private Date dateModification;
     private int votes;
+    private int annonceId;
 
-    
 }

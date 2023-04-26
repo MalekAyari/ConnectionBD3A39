@@ -15,6 +15,6 @@ public class MainClass {
     public static void main(String[] args) {
         DataSource.getInstance();
         TestAnnonce tAnnonce = new TestAnnonce();
-        tAnnonce.testCruds();
+
     }
 }

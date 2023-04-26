@@ -1,6 +1,7 @@
 package connectionbd3a39.services;
 
 import connectionbd3a39.entities.Annonce;
+import connectionbd3a39.entities.Commentaire;
 import connectionbd3a39.tools.DataSource;
 import java.sql.Connection;
 import java.sql.Date;
@@ -104,6 +105,32 @@ public class ServiceAnnonce implements IService<Annonce>{
         return list;
     }
 
+    public List<Commentaire> getAllCommentaires(Annonce annonce) throws SQLException{
+        List<Commentaire> list = new ArrayList<>();
+        int idAnnonce = annonce.getId();
+        String req = "select * from Commentaire where id=" + idAnnonce;
+        
+        Statement st = cnx.createStatement();
+        
+        ResultSet set = st.executeQuery(req);
+        while(set.next()){
+            int id = set.getInt("id");
+            String titre = set.getString(2);
+            String contenu = set.getString(3);
+            Date dateCreation = set.getDate(4);
+            Date dateModification = set.getDate(5);
+            String img = set.getString(6);
+            int votes = set.getInt(7);
+            
+            Commentaire commentaire = new Commentaire(id, titre, contenu, dateCreation, dateModification, votes);
+            list.add(commentaire);
+        }
+        
+        System.out.println("Le retrait fonctionne correctement!");
+
+        return list;
+    }
+    
     @Override
     public Annonce getOneById(int id) throws SQLException{
         String req = "SELECT * FROM annonce WHERE `Id`="+ id;

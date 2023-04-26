@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="connectionbd3a39.gui.HomePageController">
+   <children>
+      <HBox prefHeight="62.0" prefWidth="1300.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="16.0" prefWidth="206.0">
+               <children>
+                  <Label text="EcoCollectes" textAlignment="CENTER" textFill="#48c655">
+                     <font>
+                        <Font name="Monospaced Bold Italic" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="62.0" prefWidth="800.0" spacing="65.0">
+               <children>
+                  <Label text="Accueil" textAlignment="CENTER" textFill="#48c655">
+                     <font>
+                        <Font name="Monospaced Bold Italic" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label text="Annonces" textAlignment="CENTER" textFill="#48c655">
+                     <font>
+                        <Font name="Monospaced Bold Italic" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label text="Forum" textAlignment="CENTER" textFill="#48c655">
+                     <font>
+                        <Font name="Monospaced Bold Italic" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label text="FAQ" textAlignment="CENTER" textFill="#48c655">
+                     <font>
+                        <Font name="Monospaced Bold Italic" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="62.0" prefWidth="288.0" spacing="25.0">
+               <children>
+                  <Separator orientation="VERTICAL" prefHeight="200.0" />
+                  <Label text="Log In" textAlignment="CENTER" textFill="#48c655">
+                     <font>
+                        <Font name="Monospaced Bold Italic" size="20.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="62.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../tools/Images/userIcon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <Separator layoutY="61.0" prefHeight="5.0" prefWidth="1300.0" />
+      <VBox layoutX="2.0" layoutY="60.0" prefHeight="690.0" prefWidth="206.0">
+         <children>
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+         </children>
+      </VBox>
+      <ScrollPane layoutX="310.0" layoutY="112.5" prefHeight="370.0" prefWidth="900.0">
+         <content>
+            <HBox fx:id="cardBoxUpdates" prefHeight="350.0" prefWidth="990.0" />
+         </content>
+      </ScrollPane>
+      <Separator layoutX="205.0" layoutY="5.0" orientation="VERTICAL" prefHeight="1000.0" />
+      <ScrollPane layoutX="310.0" layoutY="537.0" prefHeight="370.0" prefWidth="900.0">
+         <content>
+            <HBox fx:id="cardBoxAnnonces" alignment="BASELINE_LEFT" prefHeight="350.0" prefWidth="1100.0" spacing="20.0" />
+         </content>
+      </ScrollPane>
+      <Label layoutX="310.0" layoutY="79.0" text="Latest Updates" textAlignment="CENTER" textFill="#48c655">
+         <font>
+            <Font name="Monospaced Bold Italic" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="310.0" layoutY="501.0" text="Announcements" textAlignment="CENTER" textFill="#48c655">
+         <font>
+            <Font name="Monospaced Bold Italic" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="linkVoirAnnonces" layoutX="1065.0" layoutY="501.0" onMouseClicked="#toAnnonceCatalogue" text="Voir plus..." textAlignment="CENTER" textFill="#48c655">
+         <font>
+            <Font name="Monospaced Bold Italic" size="20.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+      <Label layoutX="1065.0" layoutY="79.0" text="Voir plus..." textAlignment="CENTER" textFill="#48c655">
+         <font>
+            <Font name="Monospaced Bold Italic" size="20.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
