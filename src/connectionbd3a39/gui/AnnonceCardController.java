@@ -38,7 +38,6 @@ public class AnnonceCardController implements Initializable {
     @FXML
     private Button btnDetails;
 
-    
     private Annonce annonce;
     /**
      * Initializes the controller class.
@@ -57,7 +56,6 @@ public class AnnonceCardController implements Initializable {
             labelDesc.setText(annonce.getDescAnnonce());
             labelModif.setText(annonce.getDateModification().toString());
         }
-        
     }
     
     @FXML
@@ -65,7 +63,8 @@ public class AnnonceCardController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Annonce.fxml"));
             Parent root = loader.load();
-            
+            AnnonceController ac = loader.getController();
+            ac.setData(annonce);
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();

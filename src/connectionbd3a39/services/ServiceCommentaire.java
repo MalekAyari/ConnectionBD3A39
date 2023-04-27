@@ -21,35 +21,34 @@ import java.util.List;
  *
  * @author GAMERS
  */
+
 public class ServiceCommentaire {
     Connection cnx = DataSource.getInstance().getCnx();
     
     public void ajouter(Commentaire a, int id) throws SQLException{
-        String req = "INSERT INTO commentaire (titre,description,date_creation,date_modification,votes, annonce_id) VALUES (?,?,?,?,?,?)";
+        String req = "INSERT INTO commentaire (contenu,date_creation,date_modification,votes, annonce_id) VALUES (?,?,?,?,?)";
         
         PreparedStatement st = cnx.prepareStatement(req);
         
-        st.setString(1, a.getTitre());
-        st.setString(2, a.getContenu());
-        st.setDate(3, a.getDateCreation());
-        st.setDate(4, a.getDateModification());
-        st.setInt(5, a.getVotes());
-        st.setInt(6, id);
+        st.setString(1, a.getContenu());
+        st.setDate(2, a.getDateCreation());
+        st.setDate(3, a.getDateModification());
+        st.setInt(4, a.getVotes());
+        st.setInt(5, id);
         
         st.execute();
     }
     
     public void modifier(Commentaire c, int id) throws SQLException {
         try {
-            String req = "UPDATE commentaire SET titre=?, description=?, date_creation=? , date_modification=?, votes=? WHERE id="+id;
+            String req = "UPDATE commentaire SET contenu=?, date_creation=? , date_modification=?, votes=? WHERE id=" + id;
             
             PreparedStatement st = cnx.prepareStatement(req);
         
-            st.setString(1, c.getTitre());
-            st.setString(2, c.getContenu());
-            st.setDate(3, c.getDateCreation());
-            st.setDate(4, c.getDateModification());
-            st.setInt(7, c.getVotes());
+            st.setString(1, c.getContenu());
+            st.setDate(2, c.getDateCreation());
+            st.setDate(3, c.getDateModification());
+            st.setInt(4, c.getVotes());
             
             st.executeUpdate();
             System.out.println("Votre commentaire a été modifiée avec succés");
@@ -84,13 +83,12 @@ public class ServiceCommentaire {
         
         while(set.next()){
             int id = set.getInt("id");
-            String titre = set.getString(2);
-            String contenu = set.getString(3);
-            Date dateCreation = set.getDate(4);
-            Date dateModification = set.getDate(5);
-            int votes = set.getInt(7);
+            String contenu = set.getString(2);
+            Date dateCreation = set.getDate(3);
+            Date dateModification = set.getDate(4);
+            int votes = set.getInt(5);
             
-            Commentaire c = new Commentaire(id, titre, contenu, dateCreation, dateModification, votes);
+            Commentaire c = new Commentaire(id, contenu, dateCreation, dateModification, votes);
             list.add(c);
         }
         
@@ -107,7 +105,6 @@ public class ServiceCommentaire {
             while (rs.next()) {
                 Commentaire c = new Commentaire();
                 c.setId(rs.getInt(1));
-                c.setTitre(rs.getString("titre"));
                 c.setContenu(rs.getString("contenu"));
                 c.setDateCreation(rs.getDate("date_creation"));
                 c.setDateModification(rs.getDate("date_modification"));

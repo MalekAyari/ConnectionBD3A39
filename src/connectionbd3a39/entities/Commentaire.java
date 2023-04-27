@@ -13,18 +13,16 @@ import java.sql.Date;
  */
 public class Commentaire {
 
-    public Commentaire(int id, String titre, String Contenu, Date dateCreation, Date dateModification, int votes, int annonceId) {
+    public Commentaire(int id, String Contenu, Date dateCreation, Date dateModification, int votes, int annonceId) {
         this.id = id;
-        this.titre = titre;
         this.Contenu = Contenu;
         this.dateCreation = dateCreation;
         this.dateModification = dateModification;
         this.votes = votes;
     }
 
-    public Commentaire(int id, String titre, String Contenu, Date dateCreation, Date dateModification, int votes) {
+    public Commentaire(int id, String Contenu, Date dateCreation, Date dateModification, int votes) {
         this.id = id;
-        this.titre = titre;
         this.Contenu = Contenu;
         this.dateCreation = dateCreation;
         this.dateModification = dateModification;
@@ -75,14 +73,6 @@ public class Commentaire {
         this.id = id;
     }
 
-    public String getTitre() {
-        return titre;
-    }
-
-    public void setTitre(String titre) {
-        this.titre = titre;
-    }
-
     public String getContenu() {
         return Contenu;
     }
@@ -107,7 +97,7 @@ public class Commentaire {
         this.dateModification = dateModification;
     }
 
-    public int getVotes() {
+    public Integer getVotes() {
         return votes;
     }
 
@@ -116,7 +106,6 @@ public class Commentaire {
     }
 
     private int id;
-    private String titre;
     private String Contenu;
     private Date dateCreation;
     private Date dateModification;

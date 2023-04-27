@@ -77,8 +77,6 @@ public class Annonce {
         return "Annonce{" + "titre=" + titre + ", descAnnonce=" + descAnnonce + ", img=" + img + '}';
     }
     
-    
-
     public Integer getId() {
         return id;
     }

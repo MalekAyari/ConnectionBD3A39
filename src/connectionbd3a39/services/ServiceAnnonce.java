@@ -17,21 +17,20 @@ import java.util.List;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author GAMERS
  */
-public class ServiceAnnonce implements IService<Annonce>{
-    
+public class ServiceAnnonce implements IService<Annonce> {
+
     Connection cnx = DataSource.getInstance().getCnx();
-    
+
     @Override
-    public void ajouter(Annonce a) throws SQLException{
+    public void ajouter(Annonce a) throws SQLException {
         String req = "INSERT INTO annonce (titre,description,date_creation, date_modification, img_url) VALUES (?,?,?,?,?)";
-        
+
         PreparedStatement st = cnx.prepareStatement(req);
-        
+
         st.setString(1, a.getTitre());
         st.setString(2, a.getDescAnnonce());
         st.setDate(3, a.getDateCreation());
@@ -44,21 +43,21 @@ public class ServiceAnnonce implements IService<Annonce>{
     }
 
     @Override
-    public void modifier(Annonce a, int id) throws SQLException{
-        
+    public void modifier(Annonce a, int id) throws SQLException {
+
         try {
-            String req = "UPDATE annonce SET titre=?, description=?, date_creation=? , date_modification=?, img_url=? WHERE id="+id;
-            
+            String req = "UPDATE annonce SET titre=?, description=?, date_creation=? , date_modification=?, img_url=? WHERE id=" + id;
+
             PreparedStatement st = cnx.prepareStatement(req);
-        
+
             st.setString(1, a.getTitre());
             st.setString(2, a.getDescAnnonce());
             st.setDate(3, a.getDateCreation());
             st.setDate(4, a.getDateModification());
             st.setString(5, a.getImg());
-            
+
             st.executeUpdate();
-            System.out.println("id:"+id+" a été modifié");
+            System.out.println("id:" + id + " a été modifié");
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -66,13 +65,13 @@ public class ServiceAnnonce implements IService<Annonce>{
     }
 
     @Override
-    public void supprimer(int id) throws SQLException{
+    public void supprimer(int id) throws SQLException {
 
         try {
             String req = "delete from annonce where Id=" + id;
             PreparedStatement st = cnx.prepareStatement(req);
             st.executeUpdate();
-            System.out.println("id="+id+ " supprimée");
+            System.out.println("id=" + id + " supprimée");
 
         } catch (SQLException ex) {
             System.out.println(ex);
@@ -80,60 +79,58 @@ public class ServiceAnnonce implements IService<Annonce>{
     }
 
     @Override
-    public List<Annonce> getAll() throws SQLException{
+    public List<Annonce> getAll() throws SQLException {
         List<Annonce> list = new ArrayList<>();
-        
+
         String req = "select * from annonce";
-        
+
         Statement st = cnx.createStatement();
-        
+
         ResultSet set = st.executeQuery(req);
-        while(set.next()){
+        while (set.next()) {
             int id = set.getInt("id");
             String titre = set.getString(2);
             String description = set.getString(3);
             Date dateCreation = set.getDate(4);
             Date dateModification = set.getDate(5);
             String img = set.getString(6);
-            
+
             Annonce annonce = new Annonce(id, titre, description, dateCreation, dateModification, img);
             list.add(annonce);
         }
-        
+
         System.out.println("Le retrait fonctionne correctement!");
 
         return list;
     }
 
-    public List<Commentaire> getAllCommentaires(Annonce annonce) throws SQLException{
+    public List<Commentaire> getAllCommentaires(int annonce) throws SQLException {
         List<Commentaire> list = new ArrayList<>();
-        int idAnnonce = annonce.getId();
-        String req = "select * from Commentaire where id=" + idAnnonce;
-        
+        String req = "SELECT * FROM Commentaire WHERE annonce_id = " + annonce;
+        System.out.println("fetching commentaires for id:" + annonce);
+
         Statement st = cnx.createStatement();
-        
+
         ResultSet set = st.executeQuery(req);
-        while(set.next()){
+        while (set.next()) {
             int id = set.getInt("id");
-            String titre = set.getString(2);
-            String contenu = set.getString(3);
-            Date dateCreation = set.getDate(4);
-            Date dateModification = set.getDate(5);
-            String img = set.getString(6);
-            int votes = set.getInt(7);
-            
-            Commentaire commentaire = new Commentaire(id, titre, contenu, dateCreation, dateModification, votes);
+            String contenu = set.getString(2);
+            Date dateCreation = set.getDate(3);
+            Date dateModification = set.getDate(4);
+            int votes = set.getInt(5);
+
+            Commentaire commentaire = new Commentaire(id, contenu, dateCreation, dateModification, votes, annonce);
             list.add(commentaire);
         }
-        
+
         System.out.println("Le retrait fonctionne correctement!");
 
         return list;
     }
-    
+
     @Override
-    public Annonce getOneById(int id) throws SQLException{
-        String req = "SELECT * FROM annonce WHERE `Id`="+ id;
+    public Annonce getOneById(int id) throws SQLException {
+        String req = "SELECT * FROM annonce WHERE `Id`=" + id;
         Statement st = cnx.createStatement();
 
         ResultSet rs = st.executeQuery(req);
@@ -148,8 +145,8 @@ public class ServiceAnnonce implements IService<Annonce>{
             a.setImg(rs.getString("img_url"));
             return a;
         }
-        
+
         System.out.println("Le retrait fonctionne correctement!");
-        return null;    
+        return null;
     }
 }
