@@ -14,12 +14,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import connectionbd3a39.entities.Annonce;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 /**
@@ -39,13 +41,18 @@ public class AnnonceCardController implements Initializable {
     private Button btnDetails;
 
     private Annonce annonce;
+    @FXML
+    private HBox box;
+
+    private String[] colors = {"B9E5FF", "BDB2FE", "FB9AA8", "FF5056"};
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
     public void setData(Annonce annonce) {
         this.annonce = annonce;
@@ -55,9 +62,11 @@ public class AnnonceCardController implements Initializable {
             labelTitre.setText(annonce.getTitre());
             labelDesc.setText(annonce.getDescAnnonce());
             labelModif.setText(annonce.getDateModification().toString());
+            box.setStyle("-fx-background-color: " + colors[(int) (Math.random() * colors.length)]
+                    + "; -fx-background-radius: 15px; -fx-effect: dropShadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 10);");
         }
     }
-    
+
     @FXML
     private void toAnnonce(ActionEvent event) {
         try {
@@ -72,5 +81,5 @@ public class AnnonceCardController implements Initializable {
             Logger.getLogger(AnnonceCardController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }

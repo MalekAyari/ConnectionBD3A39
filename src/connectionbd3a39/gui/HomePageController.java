@@ -22,7 +22,11 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -77,6 +81,15 @@ public class HomePageController implements Initializable {
 
     @FXML
     private void toAnnonceCatalogue(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            Parent root = loader.load(getClass().getResource("CatalogueAnnonce.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) linkVoirAnnonces.getScene().getWindow();
+            stage.setScene(scene);
+        } catch (IOException ex) {
+            Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 

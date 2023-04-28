@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -28,6 +29,7 @@ public class HomePageGUI extends Application {
             Scene scene = new Scene(root);
         
             primaryStage.setTitle("Projet X");
+            primaryStage.initStyle(StageStyle.DECORATED);
             primaryStage.setScene(scene);
             primaryStage.show();
             
